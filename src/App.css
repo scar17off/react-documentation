@@ -1,38 +1,309 @@
-.App {
-  text-align: center;
+:root {
+  --primary-color: #4CAF50;
+  --secondary-color: #45a049;
+  --background-color: #f4f4f4;
+  --text-color: #333;
+  --sidebar-width: 250px;
+  --sidebar-background: #191919;
+  --sidebar-text: #ecf0f1;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.6;
+  color: var(--text-color);
+  background-color: var(--background-color);
+  margin: 0;
+  padding: 0;
+  transition: background-color 0.3s, color 0.3s;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+body.dark-mode {
+  --primary-color: #66BB6A;
+  --secondary-color: #81C784;
+  --background-color: #1c1e20;
+  --text-color: #e0e0e0;
+  --sidebar-background: #191919;
+  --sidebar-text: #ecf0f1;
 }
 
-.App-header {
-  background-color: #282c34;
+.app-container {
+  display: flex;
   min-height: 100vh;
+}
+
+.sidebar {
+  width: var(--sidebar-width);
+  background-color: var(--sidebar-background);
+  color: var(--sidebar-text);
+  padding: 20px;
+  overflow-y: auto;
   display: flex;
   flex-direction: column;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.sidebar h2 {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+  color: var(--primary-color);
+}
+
+.sidebar ul {
+  list-style-type: none;
+  padding: 0;
+  flex-grow: 1;
+}
+
+.sidebar li {
+  margin-bottom: 10px;
+}
+
+.sidebar a {
+  color: var(--sidebar-text);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.sidebar a:hover {
+  color: var(--primary-color);
+}
+
+.folder-item {
+  display: flex;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.folder-item > a {
+  flex-grow: 1;
+  padding: 5px 0;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.folder-icon {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  line-height: 18px;
+  margin-right: 5px;
+  background-color: var(--sidebar-background);
+  color: var(--primary-color);
+  border: 1px solid var(--primary-color);
+  border-radius: 3px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
 }
+
+.folder-icon.open {
+  transform: rotate(90deg);
+}
+
+.folder-icon:hover {
+  background-color: var(--primary-color);
+  color: var(--sidebar-background);
+}
+
+.folder-icon + a {
+  margin-left: 5px;
+}
+
+.level-0 { padding-left: 0; }
+.level-1 { padding-left: 20px; }
+.level-2 { padding-left: 40px; }
+
+.main-content {
+  flex: 1;
+  padding: 40px;
+  overflow-y: auto;
+  margin-left: var(--sidebar-width);
+}
+
+.content-container {
+  max-width: 800px;
+  margin: 0 auto;
+  background-color: rgba(255, 255, 255, 0.05);
+  padding: 40px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--primary-color);
+}
+
+h1 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+}
+
+h2 {
+  font-size: 2rem;
+  margin-top: 30px;
+  margin-bottom: 15px;
+}
+
+h3 {
+  font-size: 1.5rem;
+  margin-top: 25px;
+  margin-bottom: 10px;
+}
+
+p {
+  margin-bottom: 15px;
+}
+
+code {
+  background-color: rgba(0, 0, 0, 0.1);
+  padding: 2px 4px;
+  border-radius: 4px;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+pre {
+  background-color: rgba(0, 0, 0, 0.1);
+  padding: 15px;
+  border-radius: 4px;
+  overflow-x: auto;
+}
+
+ul, ol {
+  margin-bottom: 15px;
+  padding-left: 30px;
+}
+
+a {
+  color: var(--primary-color);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+.theme-toggle {
+  background-color: transparent;
+  color: var(--sidebar-text);
+  border: 1px solid var(--primary-color);
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 20px;
+  font-size: 1.2rem;
+}
+
+.theme-toggle:hover {
+  background-color: var(--primary-color);
+  color: var(--sidebar-background);
+}
+
+/* Add this new style for the emoji transition */
+.theme-toggle span {
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+
+.theme-toggle:hover span {
+  transform: rotate(360deg);
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+th, td {
+  border: 1px solid var(--text-color);
+  padding: 8px;
+}
+
+th {
+  background-color: var(--primary-color);
+  color: var(--background-color);
+}
+
+tr:nth-child(even) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.task-list {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.task-list-item {
+  margin-bottom: 8px;
+}
+
+.task-list-item label {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.task-list-item input[type="checkbox"] {
+  margin-right: 8px;
+  appearance: none;
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--primary-color);
+  border-radius: 3px;
+  outline: none;
+  position: relative;
+}
+
+.task-list-item input[type="checkbox"]:checked {
+  background-color: var(--primary-color);
+}
+
+.task-list-item input[type="checkbox"]:checked::after {
+  content: '✓';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: var(--background-color);
+  font-size: 12px;
+}
+
+.task-list-item span {
+  flex: 1;
+}
+
+/* Add styles for nested task lists */
+.task-list .task-list {
+  padding-left: 20px;
+}
+
+.subpages-list {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out;
+}
+
+.subpages-list.open {
+  max-height: 1000px; /* Adjust this value based on your needs */
+  transition: max-height 0.5s ease-in;
+}
+
+/* Add a subtle fade-in effect for subpage items */
+.subpages-list li {
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.subpages-list.open li {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Stagger the animation for each subpage item */
+.subpages-list.open li:nth-child(1) { transition-delay: 0.1s; }
+.subpages-list.open li:nth-child(2) { transition-delay: 0.2s; }
+.subpages-list.open li:nth-child(3) { transition-delay: 0.3s; }
