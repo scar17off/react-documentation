@@ -1,0 +1,22 @@
+{
+  "pages": [
+    {
+      "title": "Getting Started",
+      "path": "/getting-started",
+      "subpages": [
+        {
+          "title": "Installation",
+          "path": "/getting-started/installation"
+        },
+        {
+          "title": "Structure",
+          "path": "/getting-started/structure"
+        },
+        {
+          "title": "Customization",
+          "path": "/getting-started/customization"
+        }
+      ]
+    }
+  ]
+}
